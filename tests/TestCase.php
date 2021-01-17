@@ -2,6 +2,7 @@
 
 
 namespace App\Tests;
+
 use App\App\App;
 use \PDO;
 use App\App\Database\{QueryBuilder, Connection};
@@ -14,7 +15,7 @@ class TestCase extends PHPUnit
         parent::__construct();
     }
 
-    public function setUp():void
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -25,10 +26,10 @@ class TestCase extends PHPUnit
             'db',
             new QueryBuilder(Connection::make($dbConfig))
         );
-        
+
     }
 
-    public function tearDown():void
+    public function tearDown(): void
     {
         parent::tearDown();
     }

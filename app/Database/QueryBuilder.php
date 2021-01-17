@@ -1,6 +1,7 @@
 <?php
 
 namespace App\App\Database;
+
 use \PDO;
 
 class QueryBuilder
@@ -12,11 +13,11 @@ class QueryBuilder
         $this->db = $db;
     }
 
-    public function selectAll(string $table, string $fetchClass=null)
+    public function selectAll(string $table, string $fetchClass = null)
     {
         $query = $this->db->prepare("select * from {$table};");
         $query->execute();
-        
+
         if ($fetchClass) {
             return $query->fetchAll(PDO::FETCH_CLASS, $fetchClass);
         }
@@ -28,7 +29,7 @@ class QueryBuilder
     {
         $query = $this->db->prepare("select * from {$table} where id = {$id};");
         $query->execute();
-        
+
         return $query->fetchObject($fetchClass);
     }
 
@@ -39,7 +40,7 @@ class QueryBuilder
             $table,
             implode(', ', array_keys($parameters)),
             ':' . implode(', :', array_keys($parameters))
-        );  
+        );
         $query = $this->db->prepare($sql);
         $query->execute($parameters);
     }
@@ -48,7 +49,7 @@ class QueryBuilder
     {
         $sql = "UPDATE {$table} SET ";
 
-        foreach($parameters as $k => $v){
+        foreach ($parameters as $k => $v) {
             $sql .= "{$k} = '{$v}',";
         }
 

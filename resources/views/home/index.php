@@ -1,47 +1,59 @@
 <?php require 'resources/views/layouts/top.php' ?>
-    <div class="row m-1 p-3">
-        <div class="col col-11 mx-auto">
-            <div class="row bg-white rounded shadow-sm p-2 add-todo-wrapper align-items-center justify-content-center">
-                <form class="form-inline" action="/tasks" method="POST" id="addTask">
-                    <div class="form-group mb-2">
+<div class="row m-1 p-3">
+    <div class="col col-11 mx-auto">
+        <div class="row bg-white rounded shadow-sm p-2 add-todo-wrapper align-items-center justify-content-center">
+            <form class="form-inline" action="/tasks" method="POST" id="addTask">
+                <div class="form-group mb-2">
+                    <label>
                         <input type="text" required name="name" class="form-control" placeholder="Add new work">
-                    </div>
-                    <div class="form-group mx-sm-3 mb-2">
-                        <input type="date" required name="start_date" value="<? echo date('Y-m-d') ?>" class="form-control"  placeholder="Start Date">
-                    </div>
-                    <div class="form-group mx-sm-3 mb-2">
-                        <input type="date" required name="end_date" class="form-control"  placeholder="End Date">
-                    </div>
-                    <div class="form-group mx-sm-3 mb-2">
+                    </label>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label>
+                        <input type="date" required name="start_date" value="<? echo date('Y-m-d') ?>"
+                               class="form-control" placeholder="Start Date">
+                    </label>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label>
+                        <input type="date" required name="end_date" class="form-control" placeholder="End Date">
+                    </label>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label>
                         <select class="form-control" name="status">
                             <option>PLANNING</option>
                             <option>DOING</option>
                             <option>COMPLETE</option>
                         </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary mb-2">Add</button>
-                </form>
-            </div>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Add</button>
+            </form>
         </div>
     </div>
-    <div class="p-2 mx-4 border-black-25 border-bottom"></div>
-    <div class="row mx-1 px-5 pb-3 w-80">
-        <div class="col mx-auto">
-            <?php foreach ($tasks as $task) : ?>
-                <div class="row px-3 align-items-center todo-item rounded">
+</div>
+<div class="p-2 mx-4 border-black-25 border-bottom"></div>
+<div class="row mx-1 px-5 pb-3 w-80">
+    <div class="col mx-auto">
+        <?php foreach ($tasks as $task) : ?>
+            <div class="row px-3 align-items-center todo-item rounded">
                 <div class="col-auto m-1 p-0 d-flex align-items-center">
                     <h2 class="m-0 p-0">
-                    <i class="fa fa-circle text-primary fa-sm" aria-hidden="true"></i>
+                        <i class="fa fa-circle text-primary fa-sm" aria-hidden="true"></i>
                     </h2>
                 </div>
                 <div class="col px-1 m-1 d-flex align-items-center">
-                    <input type="text" class="form-control form-control-lg border-0 edit-todo-input bg-transparent rounded px-3" readonly value="<?= $task->name?>" title="<?= $task->name?>" />
-                    <input type="text" class="form-control form-control-lg border-0 edit-todo-input rounded px-3 d-none" value="<?= $task->name?>" />
+                    <input type="text"
+                           class="form-control form-control-lg border-0 edit-todo-input bg-transparent rounded px-3"
+                           readonly value="<?= $task->name ?>" title="<?= $task->name ?>"/>
+                    <input type="text" class="form-control form-control-lg border-0 edit-todo-input rounded px-3 d-none"
+                           value="<?= $task->name ?>"/>
                 </div>
                 <div class="col-auto m-1 p-0 px-3">
                     <div class="row">
                         <div class="col-auto d-flex align-items-center rounded bg-white border border-warning">
-                        <h6 class="text my-2 pr-2"><?= $task->status ?></h6>                            
+                            <h6 class="text my-2 pr-2"><?= $task->status ?></h6>
                         </div>
                     </div>
                 </div>
@@ -50,10 +62,10 @@
                         <div class="col-auto d-flex align-items-center rounded bg-white border border-warning">
                             <h6 class="text my-2 pr-2">
                                 <?
-                                    echo date_format(date_create($task->start_date),"d-m-Y");
-                                    if ($task->end_date) {
-                                        echo 'to ' . date_format(date_create($task->end_date),"d-m-Y");
-                                    }
+                                echo date_format(date_create($task->start_date), "d-m-Y");
+                                if ($task->end_date) {
+                                    echo 'to ' . date_format(date_create($task->end_date), "d-m-Y");
+                                }
                                 ?>
                             </h6>
                         </div>
@@ -62,34 +74,36 @@
                 <div class="col-auto m-1 p-0 todo-actions">
                     <div class="row d-flex align-items-center justify-content-end">
                         <h5 class="m-0 p-0 px-2">
-                            <i class="fa fa-pencil text-info btn m-0 p-0" 
-                                data-id="<?= $task->id ?>"
-                                data-name="<?= $task->name ?>"
-                                data-start_date="<?= $task->start_date ?>"
-                                data-end_date="<?= $task->end_date ?>"
-                                data-status="<?= $task->status ?>"
-                                data-toggle="tooltip" 
-                                data-placement="bottom"
-                                title="Edit todo"
+                            <i class="fa fa-pencil text-info btn m-0 p-0"
+                               data-id="<?= $task->id ?>"
+                               data-name="<?= $task->name ?>"
+                               data-start_date="<?= $task->start_date ?>"
+                               data-end_date="<?= $task->end_date ?>"
+                               data-status="<?= $task->status ?>"
+                               data-toggle="tooltip"
+                               data-placement="bottom"
+                               title="Edit todo"
                             ></i>
                         </h5>
                         <h5 class="m-0 p-0 px-2">
-                            <i class="fa fa-trash-o text-danger btn m-0 p-0" data-id="<?= $task->id ?>" data-toggle="tooltip" data-placement="bottom" title="Delete todo"></i>
+                            <i class="fa fa-trash-o text-danger btn m-0 p-0" data-id="<?= $task->id ?>"
+                               data-toggle="tooltip" data-placement="bottom" title="Delete todo"></i>
                         </h5>
                     </div>
                     <div class="row todo-created-info">
                         <div class="col-auto d-flex align-items-center pr-2">
-                            <i class="fa fa-info-circle my-2 px-2 text-black-50 btn" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Created date"></i>
-                            <label class="date-label my-2 text-black-50"><?= $task->created_at?></label>
+                            <i class="fa fa-info-circle my-2 px-2 text-black-50 btn" data-toggle="tooltip"
+                               data-placement="bottom" title="" data-original-title="Created date"></i>
+                            <label class="date-label my-2 text-black-50"><?= $task->created_at ?></label>
                         </div>
                     </div>
                 </div>
             </div>
-        <?php endforeach; ?>  
-        </div>
+        <?php endforeach; ?>
     </div>
+</div>
 <div id="taskModal" class="modal fade" role="dialog">
-    <div class="modal-dialog" >
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Update Task</h5>
@@ -127,21 +141,21 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button"  class="btn btn-primary btn-submit-task">Submit</button>
+                <button type="button" class="btn btn-primary btn-submit-task">Submit</button>
             </div>
         </div>
     </div>
 </div>
 <hr/>
 <div class="row m-1 p-4">
-        <div class="col">
-            <div class="p-1 h1 text-primary text-center mx-auto display-inline-block">
-                <i class="fa fa-calendar bg-primary text-white rounded p-2"></i>
-                <u>Calendar</u>
-            </div>
+    <div class="col">
+        <div class="p-1 h1 text-primary text-center mx-auto display-inline-block">
+            <i class="fa fa-calendar bg-primary text-white rounded p-2"></i>
+            <u>Calendar</u>
         </div>
     </div>
-<div id="holder" class="row" ></div>
+</div>
+<div id="holder" class="row"></div>
 
 <script type="text/tmpl" id="tmpl">
   {{
@@ -289,5 +303,7 @@
     </tbody>
     {{ } }}
   </table>
+
+
 </script>
 <?php require 'resources/views/layouts/bottom.php' ?>

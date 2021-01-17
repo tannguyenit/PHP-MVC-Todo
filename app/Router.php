@@ -2,6 +2,8 @@
 
 namespace App\App;
 
+use Exception;
+
 class Router
 {
     protected $routes = [];
@@ -53,24 +55,27 @@ class Router
 
     public function direct(string $url, string $method)
     {
-        foreach ($this->routes as $key => $route) {
-            if ($route['method'] == $method) {
-                $reg = '/^' . $route['url'] . '$/';
-                if (preg_match($reg, $url, $params)) {
-                    array_shift($params);
-                    return $this->callAction($route['action'], $params);
+        try {
+            foreach ($this->routes as $key => $route) {
+                if ($route['method'] == $method) {
+                    $reg = '/^' . $route['url'] . '$/';
+                    if (preg_match($reg, $url, $params)) {
+                        array_shift($params);
+                        return $this->callAction($route['action'], $params);
+                    }
                 }
             }
+        } catch (Exception $e) {
+            return null;
         }
 
-        return 'views/404.php';
-    }    
+        return null;
+    }
 
     protected function callAction($action, $params)
     {
         if (is_callable($action)) {
-            call_user_func_array($action, $params);
-            return;
+            return call_user_func_array($action, $params);
         }
 
         if (is_string($action)) {
@@ -84,5 +89,7 @@ class Router
 
             return call_user_func_array([$controller, $action[1]], $params);
         }
+
+        return null;
     }
 }

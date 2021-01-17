@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\App\App;
 use App\Models\Task;
+use Exception;
 
 class TaskController
 {
@@ -11,7 +12,7 @@ class TaskController
     {
         $tasks = App::get('db')->selectAll('tasks', Task::class);
 
-        return json_response(200, ['status' => true, 'message' => 'FETCH_SUCCESS', 'data' => $tasks ]);
+        return json_response(200, ['status' => true, 'message' => 'FETCH_SUCCESS', 'data' => $tasks]);
     }
 
     public static function store()
@@ -26,15 +27,15 @@ class TaskController
         try {
             App::get('db')->insert('tasks', $data);
         } catch (Exception $e) {
-            return json_response(500, ['status' => false, 'message' => 'STORE_FAILED' ]);
+            return json_response(500, ['status' => false, 'message' => 'STORE_FAILED']);
         }
 
-        return json_response(200, ['status' => true, 'message' => 'STORE_SUCCESS' ]);
+        return json_response(200, ['status' => true, 'message' => 'STORE_SUCCESS']);
 
     }
 
     public static function update(int $id)
-    {  
+    {
         try {
             $task = App::get('db')->findById('tasks', $id, Task::class);
 
@@ -49,26 +50,26 @@ class TaskController
                 App::get('db')->update('tasks', $id, $data);
             }
         } catch (Exception $e) {
-            return json_response(500, ['status' => false, 'message' => 'UPDATE_FAILED' ]);
+            return json_response(500, ['status' => false, 'message' => 'UPDATE_FAILED']);
 
         }
 
-        return json_response(200, ['status' => true, 'message' => 'UPDATE_SUCCESS' ]);
+        return json_response(200, ['status' => true, 'message' => 'UPDATE_SUCCESS']);
 
     }
 
     public static function delete(int $id)
-    {  
+    {
         try {
-            $task = App::get('db')->delete('tasks', $id);
+            App::get('db')->delete('tasks', $id);
         } catch (Exception $e) {
-            return json_response(500, ['status' => false, 'message' => 'DELETE_FAILED' ]);
+            return json_response(500, ['status' => false, 'message' => 'DELETE_FAILED']);
         }
-
-        return json_response(200, ['status' => true, 'message' => 'DELETE_SUCCESS' ]);
+        return json_response(200, ['status' => true, 'message' => 'DELETE_SUCCESS']);
     }
 
-    public function getTaskById(int $id) {
+    public function getTaskById(int $id)
+    {
         return App::get('db')->findById('tasks', $id, Task::class);
     }
 }

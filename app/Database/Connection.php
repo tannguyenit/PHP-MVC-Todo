@@ -1,6 +1,8 @@
 <?php
 
 namespace App\App\Database;
+
+use Exception;
 use \PDO;
 
 class Connection
@@ -14,9 +16,9 @@ class Connection
                 $config['password'],
                 $config['options']
             );
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             dd($e->getMessage());
+            return null;
         }
     }
 }
