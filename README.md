@@ -14,6 +14,7 @@ docker run --rm -v $(pwd):/app composer install
 You need to exec to mysql container and run below command for create table
 
 ```
+// harorax476@yutongdt.com
 create table tasks
 (
 	id int auto_increment primary key,
