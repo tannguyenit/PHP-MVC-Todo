@@ -31,7 +31,7 @@
                 <div class="row px-3 align-items-center todo-item rounded">
                 <div class="col-auto m-1 p-0 d-flex align-items-center">
                     <h2 class="m-0 p-0">
-                    <i class="fa fa-circle-thin text-primary fa-sm" aria-hidden="true"></i>
+                    <i class="fa fa-circle text-primary fa-sm" aria-hidden="true"></i>
                     </h2>
                 </div>
                 <div class="col px-1 m-1 d-flex align-items-center">
