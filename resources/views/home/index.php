@@ -64,7 +64,7 @@
                                 <?
                                 echo date_format(date_create($task->start_date), "d-m-Y");
                                 if ($task->end_date) {
-                                    echo 'to ' . date_format(date_create($task->end_date), "d-m-Y");
+                                    echo ' to ' . date_format(date_create($task->end_date), "d-m-Y");
                                 }
                                 ?>
                             </h6>
@@ -156,7 +156,7 @@
     </div>
 </div>
 <div id="holder" class="row"></div>
-
+<div class="lds-ring"><div></div><div></div><div></div><div></div></div>
 <script type="text/tmpl" id="tmpl">
   {{
   var date = date || new Date(),
