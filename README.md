@@ -6,7 +6,7 @@
 #### Run docker
 
 ```
-docker run --rm -v $(pwd):/app composer install
+docker run --rm -v $(pwd):/app composer install --ignore-platform-reqs
 ```
 
 #### Create database
@@ -32,3 +32,7 @@ create table tasks
 ```
 docker-compose up -d
 ```
+
+#### Demo
+
+[https://todo-php-mvc.herokuapp.com](https://todo-php-mvc.herokuapp.com/)

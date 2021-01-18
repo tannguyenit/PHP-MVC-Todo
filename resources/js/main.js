@@ -4,15 +4,18 @@ $(document).ready(function () {
     if (result) {
       const taskId = $(this).data('id');
 
-      $.ajax({
+      $('.lds-ring').css('display', 'block')
+
+      const request = $.ajax({
         url: `/tasks/${taskId}`,
         type: 'DELETE',
-        success: result => {
-          if (result.status) {
-            location.reload();
-          }
-        }
-    });
+      });
+
+      request.done(() => location.reload(true));
+
+      request.fail(function( jqXHR, textStatus ) {
+          alert( "Request failed: " + textStatus );
+      });
     }
   })
 
@@ -20,20 +23,19 @@ $(document).ready(function () {
   $('#addTask').submit(function (e) {
     e.preventDefault();
     const data = $(this).serializeArray().reduce((obj, value) => ({...obj, [value.name]: value.value }), {} )
-
+    $('.lds-ring').css('display', 'block')
     const request = $.ajax({
       url: `/tasks`,
       type: 'POST',
       data,
       dataType: 'JSON'
-  });
+    });
 
-  request.done(() => location.reload(true));
+    request.done(() => location.reload(true));
 
-  request.fail(function( jqXHR, textStatus ) {
-      alert( "Request failed: " + textStatus );
-  });
-
+    request.fail(function( jqXHR, textStatus ) {
+        alert( "Request failed: " + textStatus );
+    });
   })
 
   $('.fa-pencil').on('click', function () {
@@ -54,6 +56,7 @@ $(document).ready(function () {
   })
 
   $(".btn-submit-task").on('click', function () {
+    $('.lds-ring').css('display', 'block')
     updateTask();
   });
 });
@@ -63,22 +66,22 @@ function openModal() {
 }
 
 function updateTask() {
-    const id = $('#taskModal').find('#id').val();
-    const name = $('#taskModal').find('#name').val();
-    const status = $('#taskModal').find('#status').val();
-    const start_date = $('#taskModal').find('#start_date').val();
-    const end_date = $('#taskModal').find('#end_date').val();
-    const request = $.ajax({
-        url: `/tasks/${id}`,
-        type: 'POST',
-        data: { name : name, status: status, start_date: start_date, end_date: end_date },
-        dataType: 'JSON'
-    });
+  const id = $('#taskModal').find('#id').val();
+  const name = $('#taskModal').find('#name').val();
+  const status = $('#taskModal').find('#status').val();
+  const start_date = $('#taskModal').find('#start_date').val();
+  const end_date = $('#taskModal').find('#end_date').val();
+  const request = $.ajax({
+      url: `/tasks/${id}`,
+      type: 'POST',
+      data: { name : name, status: status, start_date: start_date, end_date: end_date },
+      dataType: 'JSON'
+  });
 
-    request.done(() => location.reload(true));
+  request.done(() => location.reload(true));
 
-    request.fail(function( jqXHR, textStatus ) {
-        alert( "Request failed: " + textStatus );
-        $('#taskModal').modal('hide');
-    });
+  request.fail(function( jqXHR, textStatus ) {
+      alert( "Request failed: " + textStatus );
+      $('#taskModal').modal('hide');
+  });
 }
