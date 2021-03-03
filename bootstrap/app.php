@@ -3,10 +3,12 @@
 use App\App\App;
 use App\App\Database\{QueryBuilder, Connection};
 
-require 'vendor/autoload.php';
-require 'utils/view.php';
-require 'utils/http-response.php';
-require 'utils/config.php';
+require_once 'vendor/autoload.php';
+require_once 'utils/view.php';
+require_once 'utils/http-response.php';
+require_once 'utils/config.php';
+require_once 'infrastructure/DotEnv/DotEnv.php';
+require_once 'utils/helpers.php';
 
 if (config('app.debug')) {
     require 'utils/dd.php';
@@ -14,5 +16,5 @@ if (config('app.debug')) {
 
 App::bind(
     'db',
-    new QueryBuilder(Connection::make(config('database')))
+    new QueryBuilder((new Connection())->make(config('database')))
 );

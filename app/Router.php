@@ -31,6 +31,10 @@ class Router
         $this->request($uri, 'PUT', $controller);
     }
 
+    /**
+     * @param $uri
+     * @param $controller
+     */
     public function delete($uri, $controller)
     {
         $this->request($uri, 'DELETE', $controller);
